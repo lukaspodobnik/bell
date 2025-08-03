@@ -1,18 +1,20 @@
 import typer
 
+from bell.core import class__, school_, year_
+
 app = typer.Typer()
 
 
 @app.command()
 def school():
-    print("school cmd :)")
+    school_.run()
 
 
 @app.command()
 def year():
-    print("year cmd :))")
+    year_.run()
 
 
 @app.command("class")
 def class_():
-    print("class cmd :)))")
+    class__.run()
