@@ -1,0 +1,4 @@
+school_name: "add name"
+address: "add address"
+year_format: "YYYY-YY" # e. g. 2025-26
+class_format: "DDC" # e. g. 10A or 7B
