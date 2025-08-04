@@ -4,7 +4,7 @@ from pathlib import Path
 
 import yaml
 
-from bell import templates
+from bell.res import templates
 from bell.types.cmd_args.init import Year
 
 

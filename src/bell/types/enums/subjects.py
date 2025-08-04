@@ -1,6 +1,6 @@
 from enum import Enum
 
 
-class Subjects(Enum):
+class Subject(Enum):
     MATHE = "mathe"
     INFORMATIK = "informatik"
