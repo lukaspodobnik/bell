@@ -1,4 +1,4 @@
 # Jahresübersicht
 
-Dies ist die Jahresübersicht für das Jahr 2025-26.
+Dies ist die Jahresübersicht für das Jahr {{ year }}.
 Inhalt ist automatisch generiert. Dieses Dokument sollte nicht händisch editiert werden.

@@ -18,10 +18,10 @@ def school(school_name: str):
 def year(
     year: Annotated[
         Year,
-        typer.Argument(
+        typer.Option(
             help="School year in YYYY-YY format", parser=parse_year, metavar="TEXT"
         ),
-    ],
+    ] = None
 ):
     year_core.run(year)
 
