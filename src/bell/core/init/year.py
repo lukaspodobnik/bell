@@ -9,30 +9,31 @@ from bell.types.cmd_args.init import Year
 
 
 def run(year: Year):
-    if not _school_initialized():
+    if not _bell_initialized():
         return
 
     year_path = _create_year_dir(year)
     _create_callendar_dir(year_path)
     _create_config_yaml(year_path)
     _create_overview_md(year_path)
+    _mark_as_initialized(year_path)
 
 
-def _school_initialized():
-    DOTBELL_PATH = Path(".bell.yaml")
-    if not DOTBELL_PATH.is_file():
-        print("School not yet initialized.")
+def _bell_initialized() -> bool:
+    dotbell_path = Path(".bell.yaml")
+    if not dotbell_path.is_file():
+        print(".bell.yaml not found")
         return False
 
-    dotbell = yaml.safe_load(DOTBELL_PATH.read_text())
-    if not dotbell["initialized"]:
-        print("School not yet initialized.")
+    dotbell = yaml.load(dotbell_path.read_text())
+    if not dotbell["bell_init"]:
+        print("BELL not initialized")
         return False
 
     return True
 
 
-def _create_year_dir(year: Year):
+def _create_year_dir(year: Year) -> Path:
     if year is None:
         current_year = datetime.now().year
         next_year = str((current_year + 1) % 100).zfill(2)
@@ -44,16 +45,23 @@ def _create_year_dir(year: Year):
     return year_path
 
 
-def _create_callendar_dir(year_path: Path):
+def _create_callendar_dir(year_path: Path) -> None:
     (year_path / "kalender").mkdir()
 
 
-def _create_config_yaml(year_path: Path):
-    config = yaml.safe_load((files(templates) / "config_year.yaml").read_text())
+def _create_config_yaml(year_path: Path) -> None:
+    config = yaml.load((files(templates) / "config_year.yaml").read_text())
     (year_path / "config.yaml").write_text(yaml.dump(config, sort_keys=False))
 
 
-def _create_overview_md(year_path: Path):
+def _create_overview_md(year_path: Path) -> None:
     overview = (files(templates) / "year_overview.md").read_text(encoding="utf-8")
-    overview = overview.replace("{{ year }}", year_path.__str__())
+    overview = overview.replace("{{ year }}", year_path.name)
     (year_path / "overview.md").write_text(overview, encoding="utf-8")
+
+
+def _mark_as_initialized(year_path: Path) -> None:
+    dotbell_path = Path(".bell.yaml")
+    dotbell = yaml.load(dotbell_path.read_text())
+    dotbell[f"{year_path.name}_init"] = True
+    dotbell_path.write_text(yaml.dump(dotbell))
