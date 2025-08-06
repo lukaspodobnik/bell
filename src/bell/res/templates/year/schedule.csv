@@ -1,7 +1,7 @@
-slot,time,class,subject
-1,8:00-8:45,,
-2,8:45-9:30,,
-3,9:45-10:30,,
-4,10:30-11:15,,
-5,11:30-12:15,,
-6,12:15-13:00,,
+Slot,Time,Monday_Subject,Monday_Class,Tuesday_Subject,Tuesday_Class,Wednesday_Subject,Wednesday_Class,Thursday_Subject,Thursday_Class,Friday_Subject,Friday_Class
+1,08:00-08:45,,,,,,,,,,,
+2,08:45-09:30,,,,,,,,,,,
+3,09:45-10:30,,,,,,,,,,,
+4,10:30-11:15,,,,,,,,,,,
+5,11:30-12:15,,,,,,,,,,,
+6,12:15-13:00,,,,,,,,,,,
