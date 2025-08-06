@@ -4,8 +4,9 @@ from pathlib import Path
 
 import yaml
 
-from bell.res import templates
+from bell.res.templates import year as year_templates
 from bell.types.cmd_args.init import Year
+from bell.utils.clone_files import clone_csv, clone_yaml
 
 
 def run(year: Year):
@@ -13,9 +14,8 @@ def run(year: Year):
         return
 
     year_path = _create_year_dir(year)
-    _create_callendar_dir(year_path)
-    _create_config_yaml(year_path)
-    _create_overview_md(year_path)
+    _create_timetable(year_path)
+    _create_config(year_path)
     _mark_as_initialized(year_path)
 
 
@@ -45,19 +45,19 @@ def _create_year_dir(year: Year) -> Path:
     return year_path
 
 
-def _create_callendar_dir(year_path: Path) -> None:
-    (year_path / "kalender").mkdir()
+def _create_timetable(year_path: Path) -> None:
+    src = files(year_templates) / "timetable.csv"
+    dst = year_path / "timetable.csv"
+    clone_csv(src, dst)
 
 
-def _create_config_yaml(year_path: Path) -> None:
-    config = yaml.load((files(templates) / "config_year.yaml").read_text())
-    (year_path / "config.yaml").write_text(yaml.dump(config, sort_keys=False))
+def _create_config(year_path: Path) -> None:
+    src = files(year_templates) / "config.yaml"
+    dst = year_path / "config.yaml"
+    clone_yaml(src, dst)
 
-
-def _create_overview_md(year_path: Path) -> None:
-    overview = (files(templates) / "year_overview.md").read_text(encoding="utf-8")
-    overview = overview.replace("{{ year }}", year_path.name)
-    (year_path / "overview.md").write_text(overview, encoding="utf-8")
+    # config = yaml.load((files(year_templates) / "config.yaml").read_text())
+    # (year_path / "config.yaml").write_text(yaml.dump(config, sort_keys=False))
 
 
 def _mark_as_initialized(year_path: Path) -> None:

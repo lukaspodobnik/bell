@@ -1,21 +1,23 @@
+from importlib.resources import files
 from pathlib import Path
 
 import yaml
 
+from bell.res.templates import class_ as class_templates
 from bell.types.cmd_args.init import Class_
 from bell.types.enums.subjects import Subject
+from bell.utils.clone_files import clone_csv
 
 
 def run(class_name: Class_, subject: Subject):
     if not _year_initialized():
         return
 
-    _create_official_syllabi()
-    _create_class_syllabus()
-    _create_notes_dir()
-    _create_students_csv()
-    _create_grades_csv()
-    _mark_as_initialized()
+    class_path = _create_class_dir()
+    _create_notes_dir(class_path)
+    _create_students_csv(class_path)
+    _create_grades_csv(class_path)
+    _mark_as_initialized(class_path)
 
 
 def _year_initialized() -> bool:
@@ -32,24 +34,24 @@ def _year_initialized() -> bool:
     return True
 
 
-def _create_official_syllabi() -> None:
-    pass
+def _create_class_dir() -> Path:
+    pass  # TODO: make in year: /maths/10A
 
 
-def _create_class_syllabus() -> None:
-    pass
+def _create_notes_dir(class_path: Path) -> None:
+    (class_path / "notes").mkdir()
 
 
-def _create_notes_dir() -> None:
-    pass
+def _create_students_csv(class_path: Path) -> None:
+    src = files(class_templates) / "students.csv"
+    dst = class_path / "students.csv"
+    clone_csv(src, dst)
 
 
-def _create_students_csv() -> None:
-    pass
-
-
-def _create_grades_csv() -> None:
-    pass
+def _create_grades_csv(class_path: Path) -> None:
+    src = files(class_templates) / "grades.csv"
+    dst = class_path / "grades.csv"
+    clone_csv(src, dst)
 
 
 def _mark_as_initialized() -> None:
