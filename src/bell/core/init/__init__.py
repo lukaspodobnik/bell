@@ -19,13 +19,9 @@ def _create_config(root_name: str) -> None:
     src = files(root_templates) / "config.yaml"
     dst = Path(root_name) / "config.yaml"
     clone_yaml(src, dst)
-    # config = yaml.load((files(root_templates) / "config.yaml").read_text())
-    # (Path(root_name) / "config.yaml").write_text(yaml.dump(config, sort_keys=False))
 
 
 def _create_dotbell(root_name: str) -> None:
     src = files(root_templates) / "dotbell.yaml"
     dst = Path(root_name) / ".bell.yaml"
     clone_yaml(src, dst)
-    # dotbell = yaml.load((files(root_templates) / "dotbell.yaml").read_text())
-    # (Path(root_name) / ".bell.yaml").write_text(yaml.dump(dotbell, sort_keys=False))

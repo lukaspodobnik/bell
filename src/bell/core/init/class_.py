@@ -17,7 +17,6 @@ def run(class_: Class_, subject: Subject):
     _create_notes_dir(class_path)
     _create_students_csv(class_path)
     _create_grades_csv(class_path)
-    _mark_as_initialized()
 
 
 def _year_initialized() -> bool:
@@ -54,7 +53,3 @@ def _create_grades_csv(class_path: Path) -> None:
     src = files(class_templates) / "grades.csv"
     dst = class_path / "grades.csv"
     clone_csv(src, dst)
-
-
-def _mark_as_initialized() -> None:
-    pass

@@ -56,9 +56,6 @@ def _create_config(year_path: Path) -> None:
     dst = year_path / "config.yaml"
     clone_yaml(src, dst)
 
-    # config = yaml.load((files(year_templates) / "config.yaml").read_text())
-    # (year_path / "config.yaml").write_text(yaml.dump(config, sort_keys=False))
-
 
 def _mark_as_initialized(year_path: Path) -> None:
     dotbell_path = Path(".bell.yaml")
