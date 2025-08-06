@@ -11,6 +11,6 @@ def clone_csv(src: Path, dst: Path) -> None:
 
 def clone_yaml(src: Path, dst: Path) -> None:
     src_content = src.read_text()
-    src_content = yaml.load(src_content)
+    src_content = yaml.load(src_content, Loader=yaml.FullLoader)
     dst_content = yaml.dump(src_content, sort_keys=False)
     dst.write_text(dst_content)

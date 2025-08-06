@@ -9,15 +9,15 @@ from bell.types.enums.subjects import Subject
 from bell.utils.clone_files import clone_csv
 
 
-def run(class_name: Class_, subject: Subject):
+def run(class_: Class_, subject: Subject):
     if not _year_initialized():
         return
 
-    class_path = _create_class_dir()
+    class_path = _create_class_dir(class_, subject)
     _create_notes_dir(class_path)
     _create_students_csv(class_path)
     _create_grades_csv(class_path)
-    _mark_as_initialized(class_path)
+    _mark_as_initialized()
 
 
 def _year_initialized() -> bool:
@@ -26,7 +26,7 @@ def _year_initialized() -> bool:
         print(".bell.yaml not found")
         return False
 
-    dotbell = yaml.load(dotbell_path.read_text())
+    dotbell = yaml.load(dotbell_path.read_text(), Loader=yaml.FullLoader)
     if dotbell.get(f"{Path('.').resolve().name}_init", None) is None:
         print("Year not initialized")
         return False
@@ -34,8 +34,10 @@ def _year_initialized() -> bool:
     return True
 
 
-def _create_class_dir() -> Path:
-    pass  # TODO: make in year: /maths/10A
+def _create_class_dir(class_: Class_, subject: Subject) -> Path:
+    class_path = subject.value / Path(class_.value)
+    class_path.mkdir(parents=True, exist_ok=True)
+    return class_path
 
 
 def _create_notes_dir(class_path: Path) -> None:

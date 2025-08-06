@@ -14,7 +14,7 @@ def run(year: Year):
         return
 
     year_path = _create_year_dir(year)
-    _create_timetable(year_path)
+    _create_schedule(year_path)
     _create_config(year_path)
     _mark_as_initialized(year_path)
 
@@ -25,7 +25,7 @@ def _bell_initialized() -> bool:
         print(".bell.yaml not found")
         return False
 
-    dotbell = yaml.load(dotbell_path.read_text())
+    dotbell = yaml.load(dotbell_path.read_text(), Loader=yaml.FullLoader)
     if not dotbell["bell_init"]:
         print("BELL not initialized")
         return False
@@ -45,9 +45,9 @@ def _create_year_dir(year: Year) -> Path:
     return year_path
 
 
-def _create_timetable(year_path: Path) -> None:
-    src = files(year_templates) / "timetable.csv"
-    dst = year_path / "timetable.csv"
+def _create_schedule(year_path: Path) -> None:
+    src = files(year_templates) / "schedule.csv"
+    dst = year_path / "schedule.csv"
     clone_csv(src, dst)
 
 
@@ -62,6 +62,6 @@ def _create_config(year_path: Path) -> None:
 
 def _mark_as_initialized(year_path: Path) -> None:
     dotbell_path = Path(".bell.yaml")
-    dotbell = yaml.load(dotbell_path.read_text())
+    dotbell = yaml.load(dotbell_path.read_text(), Loader=yaml.FullLoader)
     dotbell[f"{year_path.name}_init"] = True
     dotbell_path.write_text(yaml.dump(dotbell))
