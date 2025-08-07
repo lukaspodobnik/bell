@@ -1,7 +1,7 @@
 import typer
 from typing_extensions import Annotated
 
-from bell.core.init import class_ as class_core
+from bell.core.init.class_ import run
 from bell.types.cmd_args.init import Class_, parse_class_
 from bell.types.enums.subjects import Subject
 
@@ -23,4 +23,4 @@ def class_(
         help="Choose subject from the list to the left for this class",
     ),
 ):
-    class_core.run(class_, subject)
+    run(class_, subject)
