@@ -1,4 +1,3 @@
-from datetime import datetime
 from importlib.resources import files
 from pathlib import Path
 
@@ -34,13 +33,7 @@ def _bell_initialized() -> bool:
 
 
 def _create_year_dir(year: Year) -> Path:
-    if year is None:
-        current_year = datetime.now().year
-        next_year = str((current_year + 1) % 100).zfill(2)
-        year_path = Path(f"{current_year}-{next_year}")
-    else:
-        year_path = Path(year.value)
-
+    year_path = Path(year.value)
     year_path.mkdir()
     return year_path
 

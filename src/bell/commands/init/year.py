@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import typer
 from typing_extensions import Annotated
 
@@ -16,4 +18,9 @@ def year(
         ),
     ] = None,
 ):
+    if not year:
+        current_year = datetime.now().year
+        next_year = str((current_year + 1) % 100).zfill(2)
+        year = Year(f"{current_year}-{next_year}")
+
     run(year)
