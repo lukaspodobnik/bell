@@ -2,5 +2,5 @@ from enum import Enum
 
 
 class Subject(Enum):
-    MATHE = "mathe"
-    INFORMATIK = "informatik"
+    MATHS = "maths"
+    COMPUTER_SCIENCE = "computer_science"

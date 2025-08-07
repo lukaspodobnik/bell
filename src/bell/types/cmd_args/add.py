@@ -40,3 +40,12 @@ class Date(CommandArg):
         return (
             re.match(r"^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])$", value) is not None
         )
+
+
+class Slot(CommandArg):
+    def __init__(self, value: str):
+        super().__init__(value, error_msg="Expected: single digit between 1 and 6.")
+        self.value = value
+
+    def is_valid(self, value):
+        return re.match(r"^[1-6]$", value) is not None
