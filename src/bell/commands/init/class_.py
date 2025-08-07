@@ -10,17 +10,14 @@ app = typer.Typer()
 
 @app.command("class")
 def class_(
-    class_: Annotated[
+    class_name: Annotated[
         Class_,
         typer.Argument(
             help="Class name in ddc format", parser=Class_.parse, metavar="TEXT"
         ),
     ],
-    subject: Subject = typer.Option(
-        None,
-        "--subject",
-        "-s",
+    subject: Subject = typer.Argument(
         help="Choose subject from the list to the left for this class",
     ),
 ):
-    run(class_, subject)
+    run(class_name, subject)
