@@ -11,7 +11,7 @@ app = typer.Typer()
 
 @app.command()
 def grade(
-    student_name: Annotated[Student, typer.Argument(parser=Student.parse, help="")],
+    student: Annotated[Student, typer.Argument(parser=Student.parse, help="")],
     grade: Annotated[Grade, typer.Argument(parser=Grade.parse, help="")],
     date: Annotated[
         Date,
@@ -20,7 +20,7 @@ def grade(
         ),
     ],
     oral: bool = typer.Option(False, "--oral", "-o", help=""),
-    exam: bool = typer.Option(False, "--exam", "-e", help=""),
     comment: str = typer.Option("", "--comment", "-c", help=""),
+    exam: bool = typer.Option(False, "--exam", "-e", help=""),
 ):
-    run()
+    run(student, grade, date, oral, comment, exam)
