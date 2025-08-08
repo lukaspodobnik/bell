@@ -33,4 +33,4 @@ def student(
             "If no student is provided, --multiple flag has to be set."
         )
 
-    run(student, multiple)
+    run(student)
