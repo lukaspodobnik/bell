@@ -33,7 +33,7 @@ def _bell_initialized() -> bool:
 
 
 def _create_year_dir(year: Year) -> Path:
-    year_path = Path(year.value)
+    year_path = Path(year.school_year)
     year_path.mkdir()
     return year_path
 

@@ -4,48 +4,75 @@ from bell.types.cmd_args import CommandArg
 
 
 class Student(CommandArg):
-    def __init__(self, value: str):
-        super().__init__(
-            value,
-            error_msg="Expected format: first_name last_name - e. g. Max Musterman. Also accepts multiple first_names - e. g. Max Moritz Musterman.",
-        )
-        full_name = value.split()
-        self.first_name = " ".join(full_name[:-1])
-        self.last_name = full_name[-1]
+    _error_msg = (
+        "Expected format: first_name last_name "
+        "(e.g. Max Mustermann). Multiple first names are allowed."
+    )
 
-    def is_valid(self, value: str) -> bool:
-        return len(value.split()) >= 2
+    def __init__(self, first_name: str, last_name: str):
+        self.first_name = first_name
+        self.last_name = last_name
+
+    @classmethod
+    def _parse(cls, value: str):
+        parts = value.strip().split()
+        if len(parts) < 2:
+            return None
+
+        return Student(" ".join(parts[:-1]), parts[-1])
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
 
 
 class Grade(CommandArg):
-    def __init__(self, value: str):
-        super().__init__(
-            value, error_msg="Expected format: d - a singular digit from 1-6."
-        )
-        self.value = value
+    _error_msg = "Expected format: a single digit from 1–6 (e.g. 4)."
 
-    def is_valid(self, value):
-        return re.match(r"^[1-6]$", value) is not None
+    def __init__(self, grade: int):
+        self.grade = grade
+
+    @classmethod
+    def _parse(cls, value: str):
+        if not re.match(r"^[1-6]$", value.strip()):
+            return None
+
+        return Grade(int(value))
+
+    def __str__(self):
+        return str(self.grade)
 
 
 class Date(CommandArg):
-    def __init__(self, value: str):
-        super().__init__(
-            value,
-            error_msg="Expected format: DD-MM - e. g. 12.05 for the twelfth of may.",
-        )
-        self.value = value
+    _error_msg = "Expected format: DD-MM (e.g. 12-05 for May 12th)"
 
-    def is_valid(self, value):
-        return (
-            re.match(r"^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])$", value) is not None
-        )
+    def __init__(self, day: str, month: str):
+        self.day = day
+        self.month = month
+
+    @classmethod
+    def _parse(cls, value: str):
+        if not re.match(r"^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])$", value.strip()):
+            return None
+
+        day, month = value.strip().split("-")
+        return Date(day, month)
+
+    def __str__(self):
+        return f"{self.day}-{self.month}"
 
 
 class Slot(CommandArg):
-    def __init__(self, value: str):
-        super().__init__(value, error_msg="Expected: single digit between 1 and 6.")
-        self.value = value
+    _error_msg = "Expected: single digit between 1 and 6."
 
-    def is_valid(self, value):
-        return re.match(r"^[1-6]$", value) is not None
+    def __init__(self, num: int):
+        self.num = num
+
+    @classmethod
+    def _parse(cls, value: str):
+        if not re.match(r"^[1-6]$", value.strip()):
+            return None
+
+        return Slot(int(value))
+
+    def __str__(self):
+        return str(self.num)

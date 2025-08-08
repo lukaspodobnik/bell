@@ -14,7 +14,7 @@ def year(
     year: Annotated[
         Year,
         typer.Option(
-            help="School year in YYYY-YY format", parser=Year.parse, metavar="TEXT"
+            help="School year in YYYY-YY format", parser=Year.parser, metavar="TEXT"
         ),
     ] = None,
 ):

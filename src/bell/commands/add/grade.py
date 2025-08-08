@@ -11,11 +11,11 @@ app = typer.Typer()
 
 @app.command()
 def grade(
-    student: Annotated[Student, typer.Argument(parser=Student.parse, help="")] = None,
-    grade: Annotated[Grade, typer.Argument(parser=Grade.parse, help="")] = None,
+    student: Annotated[Student, typer.Argument(parser=Student.parser, help="")] = None,
+    grade: Annotated[Grade, typer.Argument(parser=Grade.parser, help="")] = None,
     date: Annotated[
         Date,
-        typer.Option("--date", "-d", parser=Date.parse, help=""),
+        typer.Option("--date", "-d", parser=Date.parser, help=""),
     ] = datetime.now().strftime("%d-%m"),
     oral: bool = typer.Option(False, "--oral", "-o", help=""),
     comment: str = typer.Option("", "--comment", "-c", help=""),

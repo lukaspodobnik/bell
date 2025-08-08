@@ -10,7 +10,7 @@ app = typer.Typer()
 @app.command()
 def student(
     student: Annotated[
-        Student, typer.Argument(parser=Student.parse, help="Student help")
+        Student, typer.Argument(parser=Student.parser, help="Student help")
     ] = None,
     multiple: bool = typer.Option(
         False,

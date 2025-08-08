@@ -34,7 +34,7 @@ def _year_initialized() -> bool:
 
 
 def _create_class_dir(class_: Class_, subject: Subject) -> Path:
-    class_path = subject.value / Path(class_.value)
+    class_path = subject.value / Path(class_.name)
     class_path.mkdir(parents=True, exist_ok=True)
     return class_path
 

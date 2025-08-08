@@ -4,17 +4,20 @@ from typer import BadParameter
 
 
 class CommandArg(ABC):
-    def __init__(self, value: str, error_msg: str):
-        if not self.is_valid(value):
-            raise BadParameter(error_msg)
-
-    @abstractmethod
-    def is_valid(self, value: str) -> bool:
-        pass
-
-    def __str__(self):
-        return " ".join(map(lambda x: str(x), vars(self).values()))
+    _error_msg = "Bad Argument."
 
     @classmethod
-    def parse(cls, value: str):
-        return cls(value)
+    @abstractmethod
+    def _parse(cls, value: str):
+        pass
+
+    @classmethod
+    def parser(cls, value: str):
+        cmd_arg = cls._parse(value)
+        if cmd_arg:
+            return cmd_arg
+        else:
+            raise BadParameter(cls._error_msg)
+
+    def __repr__(self):
+        return f"{self.__class__.__name__}({self.__str__()})"

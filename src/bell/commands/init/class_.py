@@ -13,7 +13,7 @@ def class_(
     class_name: Annotated[
         Class_,
         typer.Argument(
-            help="Class name in ddc format", parser=Class_.parse, metavar="TEXT"
+            help="Class name in ddc format", parser=Class_.parser, metavar="TEXT"
         ),
     ],
     subject: Subject = typer.Argument(
