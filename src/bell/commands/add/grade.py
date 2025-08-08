@@ -17,7 +17,7 @@ def grade(
     date: Annotated[
         Date,
         typer.Option("--date", "-d", parser=Date.parser, help=""),
-    ] = Date.parser(datetime.now().strftime("%d-%m")),
+    ] = datetime.now().strftime("%d-%m"),
     assignment: Assignment = typer.Option(
         Assignment.NOSPEC, "--assignment", "-a", help=""
     ),
@@ -29,7 +29,7 @@ def grade(
             "If --exam flag is set, no other arguments and options (besides --date and --assignment) must be provided."
         )
 
-    if not student or not grade:
+    if not exam and not student and not grade:
         raise typer.BadParameter(
             "If --exam is not set, both student and grade must be provided."
         )

@@ -6,6 +6,7 @@ import typer
 from bell.types.cmd_args.add import Student
 
 
+# TODO: lets me add student with exact same name
 def run(student: Student):
     students_path = Path("students.csv")
     df = pd.read_csv(students_path)
