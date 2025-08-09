@@ -9,9 +9,11 @@ from bell.res.syllabi import computer_science, maths
 from bell.types.enums.subjects import Subject
 
 
-# TODO: pick appropriate color for background
-def run():
-    subject, level = _get_subject_and_level()
+# TODO: pick appropriate colors
+def run(subject: Subject, level: int):
+    if not subject:
+        subject, level = _get_subject_and_level()
+
     match subject:
         case Subject.MATHS:
             src = files(maths)
@@ -20,7 +22,7 @@ def run():
 
     src /= f"{level:02}.md"
     md = Markdown(src.read_text())
-    panel = Panel(md, style="on color(4)")
+    panel = Panel(md)
     Console().print(panel)
 
 
