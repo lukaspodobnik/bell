@@ -16,16 +16,24 @@ def run(class_: Class_, subject: Subject):
         create_class_dir(class_path)
     except FileExistsError:
         typer.echo("Class already initialized.")
+        return
 
     create_notes_dir(class_path)
     create_students_csv(class_path)
     create_grades_csv(class_path)
 
-    crs_path = Path("..") / ".bell" / "classroom_structure" / Path.cwd().name / ".yaml"
+    crs_path = Path("..") / ".bell" / "classroom_structure" / f"{Path.cwd().name}.yaml"
     crs = yaml.safe_load(crs_path.read_text())
-    crs[subject.value] = {
-        str(class_): {".notes": {}, ".students.csv": None, ".grades.csv": None},
-    }
+    if subject.value in crs:
+        crs[subject.value][str(class_)] = {
+            ".notes": {},
+            ".students.csv": None,
+            ".grades.csv": None,
+        }
+    else:
+        crs[subject.value] = {
+            str(class_): {".notes": {}, ".students.csv": None, ".grades.csv": None},
+        }
     crs_path.write_text(yaml.dump(crs))
 
 

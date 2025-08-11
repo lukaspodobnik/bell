@@ -11,9 +11,9 @@ from bell.utils.validation import ValidationError, validate_classroom_structure
 def main() -> None:
     try:
         match " ".join(sys.argv[1:]):
-            case "bell init":
+            case "init":
                 pass
-            case "bell init year":
+            case "init year":
                 validate_classroom_structure(year_cmd=True)
             case _:
                 validate_classroom_structure()

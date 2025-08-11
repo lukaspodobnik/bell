@@ -21,7 +21,7 @@ def find_year(max_levels: int = 7) -> str:
     raise ValidationError("Year directory not found.")
 
 
-def find_bell_dir(max_levels: int = 7) -> Path:
+def find_root(max_levels: int = 7) -> Path:
     current = Path.cwd()
     for _ in range(max_levels):
         if (current / ".bell").is_dir():
@@ -30,18 +30,15 @@ def find_bell_dir(max_levels: int = 7) -> Path:
             break
         current = current.parent
 
-    raise ValidationError(".bell directory not found in parent directories.")
+    raise ValidationError("classroom directory not found.")
 
 
-def load_classroom_structure(
-    year: str, max_levels: int = 7, bell_root: Path = None
-) -> dict:
-    bell_root = bell_root if bell_root else find_bell_dir(max_levels)
-    yaml_path = bell_root / ".bell" / "classroom_structure" / f"{year}.yaml"
-    if not yaml_path.exists():
-        raise ValidationError(f"Expected structure file not found: {yaml_path}")
+def load_classroom_structure(path: Path, max_levels: int = 7) -> dict:
+    path = Path(str(path) + ".yaml")
+    if not path.exists():
+        raise ValidationError(f"Expected structure file not found: {path}")
 
-    return yaml.safe_load(yaml_path.read_text())
+    return yaml.safe_load(path.read_text())
 
 
 def validate_structure(expected: dict, current_path: Path) -> None:
@@ -57,11 +54,16 @@ def validate_structure(expected: dict, current_path: Path) -> None:
 
 
 def validate_classroom_structure(max_levels: int = 7, year_cmd: bool = False) -> None:
-    bell_root = find_bell_dir(max_levels)
-    if year_cmd and not (bell_root / "classroom_structure").is_dir():
-        raise ValidationError(
-            f"Expected sturcture directory not found: {(bell_root / 'classroom_structure')}"
-        )
+    root_path = find_root(max_levels)
+    crs_path = root_path / ".bell" / "classroom_structure"
+    if year_cmd:
+        if not (crs_path).is_dir():
+            raise ValidationError(f"Expected sturcture directory not found: {crs_path}")
 
-    expected = load_classroom_structure(find_year(max_levels), max_levels, bell_root)
-    validate_structure(expected, bell_root)
+        return
+
+    year = find_year(max_levels)
+    if not (root_path / year).is_dir():
+        raise ValidationError(f"Expected year directory not found: {root_path / year}")
+    expected = load_classroom_structure(crs_path / year, max_levels)
+    validate_structure(expected, root_path / year)

@@ -25,7 +25,6 @@ def run(year: Year):
 
     clone_csv(files(year_templates) / "schedule.csv", year_path / ".schedule.csv")
 
-    # create the year yaml at .bell/classroom_structure/
-    (Path(".bell") / "classroom_structure" / str(year) / ".yaml").write_text(
+    (Path(".bell") / "classroom_structure" / f"{str(year)}.yaml").write_text(
         yaml.dump({".schedule.csv": None})
     )
