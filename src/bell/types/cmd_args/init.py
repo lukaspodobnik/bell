@@ -7,7 +7,7 @@ class Year(CommandArg):
     _error_msg = "Expected format: YYYY-YY (e.g., 2025-26)"
 
     def __init__(self, school_year: str):
-        self.school_year = school_year
+        self._school_year = school_year
 
     @classmethod
     def _parse(cls, value):
@@ -17,14 +17,14 @@ class Year(CommandArg):
         return Year(value)
 
     def __str__(self):
-        return self.school_year
+        return self._school_year
 
 
 class Class_(CommandArg):
     _error_msg = "Expected format: ddc - d=digit, c=character (e. g., 10A)"
 
     def __init__(self, name: str):
-        self.name = name
+        self._name = name
 
     @classmethod
     def _parse(cls, value):
@@ -34,4 +34,4 @@ class Class_(CommandArg):
         return Class_(value.upper())
 
     def __str__(self):
-        return self.name
+        return self._name

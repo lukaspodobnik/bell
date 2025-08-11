@@ -10,9 +10,6 @@ from bell.utils.clone_files import clone_csv
 
 
 def run(class_: Class_, subject: Subject):
-    if not _year_initialized():
-        return
-
     class_path = _create_class_dir(class_, subject)
     _create_notes_dir(class_path)
     _create_students_csv(class_path)
