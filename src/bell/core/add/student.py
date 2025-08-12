@@ -8,7 +8,11 @@ from bell.types.cmd_args.add import Student
 
 # TODO: lets me add student with exact same name
 def run(student: Student):
-    students_path = Path("students.csv")
+    students_path = Path(".students.csv")
+    if not students_path.is_file():
+        typer.echo("This command must be used from within a class directory.")
+        return
+
     df = pd.read_csv(students_path)
 
     if student:
