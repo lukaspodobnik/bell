@@ -61,9 +61,6 @@ class Date(CommandArg):
 
     @classmethod
     def _parse(cls, value: str):
-        print(
-            f"This is the value which got passed to _parse: {value}. Its type is {type(value)}"
-        )
         if not re.match(r"^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])$", value.strip()):
             return None
 

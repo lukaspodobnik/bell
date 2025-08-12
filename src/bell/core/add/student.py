@@ -6,7 +6,6 @@ import typer
 from bell.types.cmd_args.add import Student
 
 
-# TODO: lets me add student with exact same name
 def run(student: Student):
     students_path = Path(".students.csv")
     if not students_path.is_file():
@@ -16,14 +15,14 @@ def run(student: Student):
     df = pd.read_csv(students_path)
 
     if student:
-        df = _add_single_student(df, student)
+        df = add_single_student(df, student)
     else:
-        df = _add_multiple_students(df)
+        df = add_multiple_students(df)
 
     df.to_csv(students_path, index=False)
 
 
-def _add_single_student(df: pd.DataFrame, student: Student) -> pd.DataFrame:
+def add_single_student(df: pd.DataFrame, student: Student) -> pd.DataFrame:
     new_row = {
         "first_name": student.first_name,
         "last_name": student.last_name,
@@ -36,7 +35,7 @@ def _add_single_student(df: pd.DataFrame, student: Student) -> pd.DataFrame:
     return pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
 
 
-def _add_multiple_students(df: pd.DataFrame) -> pd.DataFrame:
+def add_multiple_students(df: pd.DataFrame) -> pd.DataFrame:
     students: set[Student] = set()
     while True:
         user_input = input(">> ")
