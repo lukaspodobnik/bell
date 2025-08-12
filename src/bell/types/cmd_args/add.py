@@ -24,6 +24,16 @@ class Student(CommandArg):
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 
+    def __eq__(self, other):
+        return (
+            isinstance(other, Student)
+            and self.first_name == other.first_name
+            and self.last_name == other.last_name
+        )
+
+    def __hash__(self):
+        return hash((self.first_name, self.last_name))
+
 
 class Grade(CommandArg):
     _error_msg = "Expected format: a single digit from 1–6 (e.g. 4)."

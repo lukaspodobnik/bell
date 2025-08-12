@@ -37,7 +37,7 @@ def _add_single_student(df: pd.DataFrame, student: Student) -> pd.DataFrame:
 
 
 def _add_multiple_students(df: pd.DataFrame) -> pd.DataFrame:
-    students = []
+    students: set[Student] = set()
     while True:
         user_input = input(">> ")
         if user_input == "q":
@@ -46,18 +46,26 @@ def _add_multiple_students(df: pd.DataFrame) -> pd.DataFrame:
         try:
             student = Student.parser(user_input)
         except typer.BadParameter as e:
-            print(e)
+            typer.echo(e)
             continue
 
-        new_row = {
-            "first_name": student.first_name,
-            "last_name": student.last_name,
-        }
+        students.add(student)
 
-        if ((df == pd.Series(new_row)).all(axis=1)).any():
-            typer.echo("Student already listed.")
-            continue
+    rows = list(
+        map(
+            lambda student: {
+                "first_name": student.first_name,
+                "last_name": student.last_name,
+            },
+            students,
+        )
+    )
+    duplicates = [row for row in rows if ((df == pd.Series(row)).all(axis=1)).any()]
+    if len(duplicates) > 0:
+        typer.echo(
+            f"These students are already listed: {list(map(lambda row: Student.parser(f'{row["first_name"]} {row["last_name"]}'), duplicates))}."
+        )
 
-        students.append(new_row)
+    rows = [row for row in rows if row not in duplicates]
 
-    return pd.concat([df, pd.DataFrame(students)], ignore_index=True)
+    return pd.concat([df, pd.DataFrame(rows)], ignore_index=True)
