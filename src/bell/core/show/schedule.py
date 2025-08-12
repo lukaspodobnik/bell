@@ -11,7 +11,7 @@ def run():
     src = Path(".schedule.csv")
     for _ in range(5):
         if not src.is_file():
-            src = src.parent
+            src = ".." / src
 
     if not src.is_file():
         typer.echo(

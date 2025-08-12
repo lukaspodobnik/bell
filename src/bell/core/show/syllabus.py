@@ -14,7 +14,7 @@ from bell.types.enums.subjects import Subject
 def run(subject: Subject, grade_level: int):
     if not subject:
         class_path = Path.cwd()
-        if not re.match(r"^\d{1,2}[A-Z]&", class_path.name):
+        if not re.match(r"^\d{1,2}[A-Z]$", class_path.name):
             typer.echo(
                 "Use this command from within a class direcotry (e. g. within maths/10A)"
             )
