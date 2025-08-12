@@ -25,17 +25,19 @@ def run(student: Student):
 
 def _add_single_student(df: pd.DataFrame, student: Student) -> pd.DataFrame:
     new_row = {
-        "id": _get_next_id(df),
         "first_name": student.first_name,
         "last_name": student.last_name,
     }
+
+    if ((df == pd.Series(new_row)).all(axis=1)).any():
+        typer.echo("Student already listed.")
+        return df
 
     return pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
 
 
 def _add_multiple_students(df: pd.DataFrame) -> pd.DataFrame:
     students = []
-    next_id = _get_next_id(df)
     while True:
         user_input = input(">> ")
         if user_input == "q":
@@ -47,18 +49,15 @@ def _add_multiple_students(df: pd.DataFrame) -> pd.DataFrame:
             print(e)
             continue
 
-        students.append(
-            {
-                "id": next_id,
-                "first_name": student.first_name,
-                "last_name": student.last_name,
-            }
-        )
+        new_row = {
+            "first_name": student.first_name,
+            "last_name": student.last_name,
+        }
 
-        next_id += 1
+        if ((df == pd.Series(new_row)).all(axis=1)).any():
+            typer.echo("Student already listed.")
+            continue
+
+        students.append(new_row)
 
     return pd.concat([df, pd.DataFrame(students)], ignore_index=True)
-
-
-def _get_next_id(df: pd.DataFrame):
-    return df["id"].max() + 1 if not df.empty else 1
