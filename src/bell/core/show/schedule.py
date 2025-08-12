@@ -8,15 +8,16 @@ from rich.table import Table
 
 def run():
     table = Table()
-    src = Path("schedule.csv")
-    if not src.is_file():
-        src = Path("..") / src
+    src = Path(".schedule.csv")
+    for _ in range(5):
+        if not src.is_file():
+            src = src.parent
 
     if not src.is_file():
-        src = Path("..") / src
-
-    if not src.is_file():
-        typer.echo("No schedule was found.")
+        typer.echo(
+            f"Use this command from within a year directory or within one of its subdirs. You are currently in {Path.cwd()}"
+        )
+        return
 
     df = pd.read_csv(src)
     for col in df.columns:

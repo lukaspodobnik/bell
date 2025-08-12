@@ -59,7 +59,6 @@ def validate_classroom_structure(max_levels: int = 7, year_cmd: bool = False) ->
     if year_cmd:
         if not (crs_path).is_dir():
             raise ValidationError(f"Expected sturcture directory not found: {crs_path}")
-
         return
 
     year = find_year(max_levels)

@@ -26,13 +26,13 @@ def run(class_: Class_, subject: Subject):
     crs = yaml.safe_load(crs_path.read_text())
     if subject.value in crs:
         crs[subject.value][str(class_)] = {
-            ".notes": {},
+            "notes": {},
             ".students.csv": None,
             ".grades.csv": None,
         }
     else:
         crs[subject.value] = {
-            str(class_): {".notes": {}, ".students.csv": None, ".grades.csv": None},
+            str(class_): {"notes": {}, ".students.csv": None, ".grades.csv": None},
         }
     crs_path.write_text(yaml.dump(crs))
 
@@ -43,7 +43,7 @@ def create_class_dir(class_path: Path) -> None:
 
 
 def create_notes_dir(class_path: Path) -> None:
-    (class_path / ".notes").mkdir()
+    (class_path / "notes").mkdir()
 
 
 def create_students_csv(class_path: Path) -> None:
