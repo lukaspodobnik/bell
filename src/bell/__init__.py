@@ -11,13 +11,14 @@ from bell.utils.validation import ValidationError, validate_classroom_structure
 
 def main() -> None:
     try:
-        match " ".join(sys.argv[1:]):
-            case "init":
-                pass
-            case "init year":
-                validate_classroom_structure(year_cmd=True)
-            case _:
-                validate_classroom_structure()
+        if "--help" not in sys.argv:
+            match " ".join(sys.argv[1:]):
+                case "init":
+                    pass
+                case "init year":
+                    validate_classroom_structure(year_cmd=True)
+                case _:
+                    validate_classroom_structure()
     except ValidationError as e:
         print(f"Project structure validation failed: {e}")
         return

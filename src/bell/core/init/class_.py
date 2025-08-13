@@ -30,6 +30,7 @@ def run(class_: Class_, subject: Subject):
             "notes": {},
             ".students.csv": None,
             ".grades.csv": None,
+            ".exams.csv": None,
         }
     else:
         crs[subject.value] = {
