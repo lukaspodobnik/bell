@@ -11,7 +11,6 @@ from bell.types.enums.weekdays import Weekday
 
 def run(slot: Slot, weekday: Weekday):
     class_path = Path.cwd()
-    print(class_path.name)
     if not re.match(r"^\d{1,2}[A-Z]$", class_path.name):
         typer.echo(
             "Use this command from within a class direcotry (e. g. within maths/10A)"
