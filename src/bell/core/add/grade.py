@@ -4,16 +4,15 @@ import pandas as pd
 import typer
 
 from bell.types.cmd_args.add import Date, Grade, Student
-from bell.types.enums.assignments import Assignment
+from bell.types.enums.exam_types import ExamType
 
 
 def run(
     student: Student,
     grade: Grade,
     date: Date,
-    assignment: Assignment,
+    assignment: ExamType,
     comment: str,
-    exam: bool,
 ):
     grades_path = Path(".grades.csv")
     if not grades_path.is_file():
@@ -39,7 +38,7 @@ def add_single_grade(
     student: Student,
     grade: Grade,
     date: Date,
-    assignment: Assignment,
+    assignment: ExamType,
     comment: str,
 ) -> pd.DataFrame:
     new_row = {
@@ -68,7 +67,7 @@ def add_multiple_grades(
     df_grades: pd.DataFrame,
     df_students: pd.DataFrame,
     date: Date,
-    assignment: Assignment,
+    assignment: ExamType,
 ) -> pd.DataFrame:
     row_template = {
         "student_name": None,
