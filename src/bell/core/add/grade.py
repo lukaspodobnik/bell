@@ -7,6 +7,7 @@ from bell.types.cmd_args.add import Date, Grade, Student
 from bell.types.enums.exam_types import ExamType
 
 
+# TODO: adjust run to new grades.csv
 def run(
     student: Student,
     grade: Grade,

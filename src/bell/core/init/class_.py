@@ -21,6 +21,7 @@ def run(class_: Class_, subject: Subject):
     create_notes_dir(class_path)
     create_students_csv(class_path)
     create_grades_csv(class_path)
+    create_exams_csv(class_path)
 
     crs_path = Path("..") / ".bell" / "classroom_structure" / f"{Path.cwd().name}.yaml"
     crs = yaml.safe_load(crs_path.read_text())
@@ -55,4 +56,10 @@ def create_students_csv(class_path: Path) -> None:
 def create_grades_csv(class_path: Path) -> None:
     src = files(class_templates) / "grades.csv"
     dst = class_path / ".grades.csv"
+    clone_csv(src, dst)
+
+
+def create_exams_csv(class_path: Path) -> None:
+    src = files(class_templates) / "exams.csv"
+    dst = class_path / ".exams.csv"
     clone_csv(src, dst)
