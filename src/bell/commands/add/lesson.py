@@ -9,7 +9,7 @@ app = typer.Typer()
 
 
 @app.command()
-def schedule(
+def lesson(
     slot: Annotated[Slot, typer.Argument(parser=Slot.parser, help="")],
     weekday: Weekday = typer.Argument(help=""),
 ):
