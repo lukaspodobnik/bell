@@ -1,7 +1,7 @@
 import typer
 from typing_extensions import Annotated
 
-from bell.core.add.schedule import run
+from bell.core.add.lesson import run
 from bell.types.cmd_args.add import Slot
 from bell.types.enums.weekdays import Weekday
 
