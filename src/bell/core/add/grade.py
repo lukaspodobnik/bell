@@ -3,17 +3,18 @@ from pathlib import Path
 import pandas as pd
 import typer
 
-from bell.types.cmd_args.add import Date, Grade, Student
+from bell.types.cmd_args.add import Date, Student
 from bell.types.enums.exam_types import ExamType
 
 
-# TODO: adjust run to new grades.csv
 def run(
     student: Student,
-    grade: Grade,
+    grade: int,
+    number: int,
+    exam_type: ExamType,
     date: Date,
-    assignment: ExamType,
     comment: str,
+    all: bool,
 ):
     grades_path = Path(".grades.csv")
     if not grades_path.is_file():
@@ -25,10 +26,10 @@ def run(
 
     if student:
         df_grades = add_single_grade(
-            df_grades, df_students, student, grade, date, assignment, comment
+            df_grades, df_students, student, grade, number, exam_type, date, comment
         )
     else:
-        df_grades = add_multiple_grades(df_grades, df_students, date, assignment)
+        df_grades = add_multiple_grades(df_grades, df_students, date, exam_type)
 
     df_grades.to_csv(grades_path, index=False)
 
@@ -37,19 +38,12 @@ def add_single_grade(
     df_grades: pd.DataFrame,
     df_students: pd.DataFrame,
     student: Student,
-    grade: Grade,
+    grade: int,
+    number: int,
+    exam_type: ExamType,
     date: Date,
-    assignment: ExamType,
     comment: str,
 ) -> pd.DataFrame:
-    new_row = {
-        "student_name": str(student),
-        "assignment": assignment.name,
-        "date": str(date),
-        "grade": str(grade),
-        "comment": comment,
-    }
-
     if not (
         (
             df_students
@@ -61,6 +55,16 @@ def add_single_grade(
         typer.echo(f"Student {student} does not exist.")
         return df_grades
 
+    number = find_exam_number(df_grades, exam_type, student) if number == 0 else number
+    new_row = {
+        "student_name": str(student),
+        "number": str(number),
+        "exam_type": exam_type.value,
+        "date": str(date),
+        "grade": str(grade),
+        "comment": comment,
+    }
+
     return pd.concat([df_grades, pd.DataFrame([new_row])], ignore_index=True)
 
 
@@ -68,14 +72,12 @@ def add_multiple_grades(
     df_grades: pd.DataFrame,
     df_students: pd.DataFrame,
     date: Date,
-    assignment: ExamType,
+    exam_type: ExamType,
 ) -> pd.DataFrame:
     row_template = {
-        "student_name": None,
-        "assignment": assignment.name,
+        "exam_type": exam_type.value,
         "date": str(date),
-        "grade": None,
-        "comment": "",
+        "comment": " ",
     }
 
     students = [
@@ -88,24 +90,45 @@ def add_multiple_grades(
     grades = []
 
     for student in students:
-        user_input = prompt_non_empty(student)
+        user_input = prompt_grade(student)
         if user_input == "q":
             break
 
-        parts = user_input.strip().split(maxsplit=1)
+        parts = user_input.split(maxsplit=1)
 
         new_row = row_template.copy()
         new_row["student_name"] = str(student)
-        new_row["grade"] = str(Grade.parser(parts[0]))
-        new_row["comment"] = parts[1] if len(parts) == 2 else ""
+        new_row["number"] = find_exam_number(df_grades, exam_type, student)
+        new_row["grade"] = str(int(parts[0]))
+        new_row["comment"] = parts[1] if len(parts) == 2 else " "
 
         grades.append(new_row)
 
     return pd.concat([df_grades, pd.DataFrame(grades)], ignore_index=True)
 
 
-def prompt_non_empty(student: Student) -> str:
+def prompt_grade(student: Student) -> str:
     while True:
-        user_input = input(f">> Student: {student}\n>> ")
-        if user_input:
-            return user_input
+        user_input = input(f">> Student: {student}\n>> ").strip()
+        if not user_input:
+            continue
+
+        if user_input != "q" and (
+            not user_input.isdigit() or not (1 <= int(user_input) <= 6)
+        ):
+            typer.echo("Invalid grade. Please enter a number between 1 and 6.")
+            continue
+
+        return user_input
+
+
+def find_exam_number(
+    df_grades: pd.DataFrame, exam_type: ExamType, student: Student
+) -> int:
+    numbers = df_grades.loc[
+        (df_grades["exam_type"] == exam_type.value)
+        & (df_grades["student_name"] == str(student)),
+        "number",
+    ]
+
+    return numbers.max() + 1 if not numbers.empty else 1
