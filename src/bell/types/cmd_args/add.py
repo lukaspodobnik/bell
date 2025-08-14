@@ -16,7 +16,7 @@ class Student(CommandArg):
 
     @classmethod
     def _parse(cls, value: str):
-        parts = value.strip().split()
+        parts = list(map(str.capitalize, value.strip().split()))
         if len(parts) < 2:
             return None
 
