@@ -79,6 +79,9 @@ class Date(CommandArg):
     def __str__(self):
         return f"{self._day}-{self._month}-{self._year}"
 
+    def __eq__(self, value):
+        return str(self) == str(value)
+
 
 class Slot(CommandArg):
     _error_msg = "Expected: single digit between 1 and 6."
