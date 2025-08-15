@@ -23,7 +23,7 @@ def {command}():
 """
 
 core_content = """
-def run():
+def run() -> None:
     pass
 """
 

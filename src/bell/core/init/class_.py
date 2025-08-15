@@ -34,7 +34,12 @@ def run(class_: Class_, subject: Subject):
         }
     else:
         crs[subject.value] = {
-            str(class_): {"notes": {}, ".students.csv": None, ".grades.csv": None},
+            str(class_): {
+                "notes": {},
+                ".students.csv": None,
+                ".grades.csv": None,
+                ".exams.csv": None,
+            },
         }
     crs_path.write_text(yaml.dump(crs))
 
