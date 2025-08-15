@@ -17,7 +17,7 @@ from bell.core.{group}.{command} import run
 
 app = typer.Typer()
 
-app.command()
+@app.command()
 def {command}():
     run()
 """
