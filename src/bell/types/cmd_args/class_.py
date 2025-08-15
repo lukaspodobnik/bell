@@ -4,7 +4,7 @@ from bell.types.cmd_args import CommandArg
 
 
 class Class_(CommandArg):
-    _error_msg = "Expected format: ddc - d=digit, c=character (e. g., 10A)"
+    _error_msg = "Expected format: a number followed by a letter (e.g., 10A or 9B)."
 
     def __init__(self, name: str):
         self._name = name

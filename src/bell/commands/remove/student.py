@@ -9,6 +9,15 @@ app = typer.Typer()
 
 @app.command()
 def student(
-    student: Annotated[Student, typer.Argument(parser=Student.parser, help="")],
+    student: Annotated[
+        Student,
+        typer.Argument(
+            parser=Student.parser,
+            help="The student to remove (e.g., 'Max Mustermann').",
+        ),
+    ],
 ) -> None:
+    """
+    Remove a student from this class.
+    """
     run(student)

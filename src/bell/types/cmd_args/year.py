@@ -1,4 +1,5 @@
 import re
+from datetime import datetime
 
 from bell.types.cmd_args import CommandArg
 
@@ -18,3 +19,9 @@ class Year(CommandArg):
 
     def __str__(self):
         return self._school_year
+
+
+def current_year() -> str:
+    current_year = datetime.now().year
+    next_year = str((current_year + 1) % 100).zfill(2)
+    return f"{current_year}-{next_year}"

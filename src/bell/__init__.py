@@ -23,7 +23,10 @@ def main() -> None:
         print(f"Project structure validation failed: {e}")
         return
 
-    app = typer.Typer()
+    app = typer.Typer(
+        help="BELL – A small daily bookkeeping tool for teachers.",
+        rich_markup_mode="markdown",
+    )
     app.add_typer(add_app, name="add")
     app.add_typer(init_app, name="init")
     app.add_typer(remove_app, name="remove")

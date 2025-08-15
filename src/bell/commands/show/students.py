@@ -7,4 +7,7 @@ app = typer.Typer()
 
 @app.command()
 def students():
+    """
+    Show all students in this class.
+    """
     run()

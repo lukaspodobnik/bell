@@ -8,7 +8,10 @@ app = typer.Typer()
 
 @app.command()
 def lesson(
-    slot: int = typer.Argument(min=1, max=6, help=""),
-    weekday: Weekday = typer.Argument(help=""),
+    slot: int = typer.Argument(min=1, max=6, help="Time slot of the lesson."),
+    weekday: Weekday = typer.Argument(help="Weekday of the lesson."),
 ):
+    """
+    Remove a lesson from the schedule for this year.
+    """
     run(slot, weekday)

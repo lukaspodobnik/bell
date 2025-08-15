@@ -12,6 +12,12 @@ app.add_typer(class_.app)
 
 @app.callback()
 def init_callback(ctx: typer.Context):
+    """
+    Initialize a new classroom workspace.
+
+    Sets up the main classroom directory in the current directory. This is the first
+    step for using BELL and must be run before initializing years or classes.
+    """
     if ctx.invoked_subcommand:
         return
 

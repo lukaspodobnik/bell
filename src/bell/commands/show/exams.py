@@ -7,4 +7,7 @@ app = typer.Typer()
 
 @app.command()
 def exams():
+    """
+    Show all planned (and already completed) exams for this class.
+    """
     run()

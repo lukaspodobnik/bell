@@ -5,9 +5,7 @@ from bell.types.cmd_args import CommandArg
 
 
 class Date(CommandArg):
-    _error_msg = (
-        "Expected format: DD-MM or DD-MM-YYYY (e.g. 12-05-2025 for May 12th 2025)"
-    )
+    _error_msg = "Expected format: DD-MM or DD-MM-YYYY (e.g., 12-05 or 12-05-2025 for May 12th 2025)."
 
     def __init__(self, day: str, month: str, year: str):
         self._day = day

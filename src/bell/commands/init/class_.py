@@ -13,11 +13,20 @@ def class_(
     class_name: Annotated[
         Class_,
         typer.Argument(
-            help="Class name in ddc format", parser=Class_.parser, metavar="TEXT"
+            help="Name of the class (e.g., 10A, 9B).",
+            parser=Class_.parser,
         ),
     ],
     subject: Subject = typer.Argument(
-        help="Choose subject from the list to the left for this class",
+        help="Subject name (e.g., maths).",
     ),
 ):
+    """
+    Initialize a class.
+
+    Creates a directory for the specified class in the given subject within the
+    current academic year. This is the third step after using 'bell init year'. Use this command
+    within a year directory.
+    """
+
     run(class_name, subject)

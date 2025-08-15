@@ -11,11 +11,31 @@ app = typer.Typer()
 @app.command()
 def grades(
     student: Annotated[
-        Student, typer.Option("--student", "-s", parser=Student.parser, help="")
+        Student,
+        typer.Option(
+            "--student",
+            "-s",
+            parser=Student.parser,
+            help="The student to show grades for (e.g. 'Max Mustermann').",
+        ),
     ] = None,
-    exam_type: ExamType = typer.Option(None, "--exam-type", "-t", help=""),
-    last: bool = typer.Option(False, "--last", "-l", help=""),
+    exam_type: ExamType = typer.Option(
+        None, "--exam-type", "-t", help="Type of the exam (e.g., kurzarbeit)."
+    ),
+    last: bool = typer.Option(
+        False,
+        "--last",
+        "-l",
+        help="Set this to only show the grades for the last exam.",
+    ),
 ):
+    """
+    Show grades for this class.
+
+    Use --student to only show grades for a specific student.
+    Use --exam-type to only show grades for a specific exam type.
+    Use --last to only show the grads for the last exam.
+    """
     if (
         (student and (exam_type or last))
         or (exam_type and (student or last))

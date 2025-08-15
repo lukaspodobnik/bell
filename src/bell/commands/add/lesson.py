@@ -8,7 +8,14 @@ app = typer.Typer()
 
 @app.command()
 def lesson(
-    slot: int = typer.Argument(min=1, max=6, help=""),
-    weekday: Weekday = typer.Argument(help=""),
+    slot: int = typer.Argument(min=1, max=6, help="Time slot of the lesson."),
+    weekday: Weekday = typer.Argument(help="Weekday of the lesson."),
 ):
+    """
+    Add a lesson to the schedule.
+
+    Assigns the current class and subject to the specified slot and weekday in
+    the schedule.
+    """
+
     run(slot, weekday)

@@ -10,8 +10,18 @@ app = typer.Typer()
 
 @app.command()
 def grade(
-    student: Annotated[Student, typer.Argument(parser=Student.parser, help="")],
-    number: int = typer.Argument(help=""),
-    exam_type: ExamType = typer.Argument(help=""),
+    student: Annotated[
+        Student,
+        typer.Argument(
+            parser=Student.parser, help='Student name (e.g., "Max Mustermann").'
+        ),
+    ],
+    number: int = typer.Argument(
+        help="Number of the exam, (e.g., 1 for the first exam of given type)."
+    ),
+    exam_type: ExamType = typer.Argument(help="Type of exam (e.g., kurzarbeit)."),
 ):
+    """
+    Remove a grade for a student in this class.
+    """
     run(student, number, exam_type)

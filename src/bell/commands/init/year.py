@@ -1,10 +1,8 @@
-from datetime import datetime
-
 import typer
 from typing_extensions import Annotated
 
 from bell.core.init.year import run
-from bell.types.cmd_args.year import Year
+from bell.types.cmd_args.year import Year, current_year
 
 app = typer.Typer()
 
@@ -14,13 +12,20 @@ def year(
     year: Annotated[
         Year,
         typer.Option(
-            help="School year in YYYY-YY format", parser=Year.parser, metavar="TEXT"
+            ...,
+            "--year",
+            "-y",
+            help="Specify a different academic year (e.g., 2024-25).",
+            parser=Year.parser,
         ),
-    ] = None,
+    ] = current_year(),
 ):
-    if not year:
-        current_year = datetime.now().year
-        next_year = str((current_year + 1) % 100).zfill(2)
-        year = Year(f"{current_year}-{next_year}")
+    """
+    Initialize the academic year.
+
+    Creates a directory for the current (or specified) academic year inside the
+    classroom workspace. This is the second step after using 'bell init'. Use this command
+    within the classroom directory.
+    """
 
     run(year)

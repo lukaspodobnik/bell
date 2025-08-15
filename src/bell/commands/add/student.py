@@ -10,17 +10,23 @@ app = typer.Typer()
 @app.command()
 def student(
     student: Annotated[
-        Student, typer.Argument(parser=Student.parser, help="Student help")
+        Student,
+        typer.Argument(
+            parser=Student.parser, help='The Student to add (e.g., "Max Mustermann")'
+        ),
     ] = None,
     multiple: bool = typer.Option(
         False,
         "--multiple",
         "-m",
-        help="Add many students in an interactive mode. Exit with q.",
+        help="Set this to add multiple students.",
     ),
 ):
     """
-    This is how to use the bell add student cmd.
+    Add a student (or multiple students) to the current class.
+
+    Adds a single student or --multiple students to the class roster.
+    making them available for other commands.
     """
 
     if student and multiple:
