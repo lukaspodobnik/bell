@@ -2,7 +2,7 @@ import typer
 from typing_extensions import Annotated
 
 from bell.core.remove.student import run
-from bell.types.cmd_args.add import Student
+from bell.types.cmd_args.student import Student
 
 app = typer.Typer()
 

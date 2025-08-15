@@ -5,7 +5,7 @@ import typer
 import yaml
 
 from bell.res.templates import class_ as class_templates
-from bell.types.cmd_args.init import Class_
+from bell.types.cmd_args.class_ import Class_
 from bell.types.enums.subjects import Subject
 from bell.utils.file_manager import clone_csv
 

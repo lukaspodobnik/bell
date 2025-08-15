@@ -30,7 +30,9 @@ def find_root(max_levels: int = 7) -> Path:
             break
         current = current.parent
 
-    raise ValidationError("classroom directory not found.")
+    raise ValidationError(
+        "classroom directory not found. You must run commands from somewhere within the classroom directory."
+    )
 
 
 def load_classroom_structure(path: Path, max_levels: int = 7) -> dict:

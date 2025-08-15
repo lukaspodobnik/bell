@@ -1,8 +1,6 @@
 import typer
-from typing_extensions import Annotated
 
 from bell.core.add.lesson import run
-from bell.types.cmd_args.add import Slot
 from bell.types.enums.weekdays import Weekday
 
 app = typer.Typer()
@@ -10,7 +8,7 @@ app = typer.Typer()
 
 @app.command()
 def lesson(
-    slot: Annotated[Slot, typer.Argument(parser=Slot.parser, help="")],
+    slot: int = typer.Argument(min=1, max=6, help=""),
     weekday: Weekday = typer.Argument(help=""),
 ):
     run(slot, weekday)

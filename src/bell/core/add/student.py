@@ -3,7 +3,7 @@ from pathlib import Path
 import pandas as pd
 import typer
 
-from bell.types.cmd_args.add import Student
+from bell.types.cmd_args.student import Student
 
 
 def run(student: Student):

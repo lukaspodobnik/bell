@@ -4,7 +4,7 @@ import typer
 from typing_extensions import Annotated
 
 from bell.core.init.year import run
-from bell.types.cmd_args.init import Year
+from bell.types.cmd_args.year import Year
 
 app = typer.Typer()
 

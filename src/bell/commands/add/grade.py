@@ -4,7 +4,8 @@ import typer
 from typing_extensions import Annotated
 
 from bell.core.add.grade import run
-from bell.types.cmd_args.add import Date, Student
+from bell.types.cmd_args.date import Date
+from bell.types.cmd_args.student import Student
 from bell.types.enums.exam_types import ExamType
 
 app = typer.Typer()

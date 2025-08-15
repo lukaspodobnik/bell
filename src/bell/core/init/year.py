@@ -5,7 +5,7 @@ import typer
 import yaml
 
 from bell.res.templates import year as year_templates
-from bell.types.cmd_args.init import Year
+from bell.types.cmd_args.year import Year
 from bell.utils.file_manager import clone_csv
 
 

@@ -4,12 +4,11 @@ from pathlib import Path
 import pandas as pd
 import typer
 
-from bell.types.cmd_args.add import Slot
 from bell.types.enums.subjects import Subject
 from bell.types.enums.weekdays import Weekday
 
 
-def run(slot: Slot, weekday: Weekday):
+def run(slot: int, weekday: Weekday):
     class_path = Path.cwd()
     if not re.match(r"^\d{1,2}[A-Z]$", class_path.name):
         typer.echo(
@@ -18,8 +17,8 @@ def run(slot: Slot, weekday: Weekday):
         return
     schedule_path = class_path.parent.parent / ".schedule.csv"
 
-    df = pd.read_csv(schedule_path, index_col="Slot")
-    df.at[slot.num, weekday.value.capitalize()] = (
+    df = pd.read_csv(schedule_path, index_col="#")
+    df.at[slot, weekday.value.capitalize()] = (
         f"{class_path.name}-{Subject(class_path.parent.name).name}"
     )
     df.to_csv(schedule_path)

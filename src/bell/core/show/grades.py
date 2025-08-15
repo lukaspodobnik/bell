@@ -5,7 +5,7 @@ import typer
 from rich.console import Console
 from rich.table import Table
 
-from bell.types.cmd_args.add import Student
+from bell.types.cmd_args.student import Student
 from bell.types.enums.exam_types import ExamType
 
 
