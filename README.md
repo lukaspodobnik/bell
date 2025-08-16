@@ -1,3 +1,88 @@
+# BELL
+
+**BELL** is a small, minimal bookkeeping tool for teachers, designed to manage students, grades, and classroom activities directly from the command line.
+
+---
+
+## Features
+
+- Add, remove, and list students
+- Record grades and exam results
+- Organize notes and a schedule
+- Show syllabi (only works with the bavarian "Lehrplanplus" for maths and computer science)
+- Lightweight, CLI-first workflow with human-readable storage
+
+_Note that currently this tool only works for the subjects maths and computer science._
+
+---
+
+## Installation
+
+todo
+
+---
+
+## How to get started
+
+- Start with 'bell init', where ever you want your root directory to be
+- cd into classroom/ and use 'bell init year'
+- cd into the year and use 'bell init class 10A maths' (for example)
+- Use the very wise --help option to see usage of the commands in the terminal
+
+---
+
+## Classroom Structure
+
+BELL will create a predefined directory structure. Here is an example:
+
+```
+classroom/
+    .bell/
+        classroom_structure/
+    2025-26/
+        cs/
+            10A/
+                notes/
+                .exams.csv
+                .grades.csv
+                .students.csv
+            12C/
+                notes/
+                .exams.csv
+                .grades.csv
+                .students.csv
+        maths/
+            9B/
+                notes/
+                .exams.csv
+                .grades.csv
+                .students.csv
+        .schedule.csv
+    2026-27/
+        .schedule.csv
+```
+
+Note that you **can** add other directories and files (these are going to be ignored by BELL), but you **cannot** remove any of the generated direcotries or files by hand - this will break the tool.
+
+---
+
+## Documentation
+
+### `bell init`
+
+Initialize a new classroom workspace.
+
+Sets up the main classroom directory in the current directory. This is the first
+step for using BELL and must be run before initializing years or classes.
+
+**Usage**
+
+```console
+$ bell init
+```
+
+---
+
 ### `bell init year`
 
 Initialize the academic year.
@@ -18,6 +103,8 @@ $ bell init year [OPTIONS]
 * `--install-completion`: Install completion for the current shell.
 * `--show-completion`: Show completion for the current shell, to copy it or customize the installation.
 * `--help`: Show this message and exit.
+
+---
 
 ### `bell init class_`
 
@@ -44,6 +131,8 @@ $ bell init class_ [OPTIONS] [CLASS] SUBJECT:{maths|cs}
 * `--show-completion`: Show completion for the current shell, to copy it or customize the installation.
 * `--help`: Show this message and exit.
 
+---
+
 ### `bell add lesson`
 
 Add a lesson to the schedule.
@@ -67,6 +156,8 @@ $ bell add lesson [OPTIONS] SLOT WEEKDAY:{monday|tuesday|wednesday|thursday|frid
 * `--install-completion`: Install completion for the current shell.
 * `--show-completion`: Show completion for the current shell, to copy it or customize the installation.
 * `--help`: Show this message and exit.
+
+---
 
 ### `bell add exam`
 
@@ -92,6 +183,8 @@ $ bell add exam [OPTIONS] EXAM_TYPE:{mündlich|stegreifaufgabe|schulaufgabe|kurz
 * `--show-completion`: Show completion for the current shell, to copy it or customize the installation.
 * `--help`: Show this message and exit.
 
+---
+
 ### `bell add note`
 
 Add a note for the current class.
@@ -110,6 +203,9 @@ $ bell add note [OPTIONS]
 * `--install-completion`: Install completion for the current shell.
 * `--show-completion`: Show completion for the current shell, to copy it or customize the installation.
 * `--help`: Show this message and exit.
+
+---
+
 
 ### `bell add student`
 
@@ -134,6 +230,9 @@ $ bell add student [OPTIONS] [STUDENT]
 * `--install-completion`: Install completion for the current shell.
 * `--show-completion`: Show completion for the current shell, to copy it or customize the installation.
 * `--help`: Show this message and exit.
+
+---
+
 
 ### `bell add grade`
 
@@ -167,6 +266,9 @@ $ bell add grade [OPTIONS] [STUDENT] [GRADE]
 * `--show-completion`: Show completion for the current shell, to copy it or customize the installation.
 * `--help`: Show this message and exit.
 
+---
+
+
 ### `bell remove class_`
 
 Remove a class from the current academic year.
@@ -191,6 +293,9 @@ $ bell remove class_ [OPTIONS] [CLASS] SUBJECT:{maths|cs}
 * `--show-completion`: Show completion for the current shell, to copy it or customize the installation.
 * `--help`: Show this message and exit.
 
+---
+
+
 ### `bell remove lesson`
 
 Remove a lesson from the schedule for this year.
@@ -212,6 +317,9 @@ $ bell remove lesson [OPTIONS] SLOT WEEKDAY:{monday|tuesday|wednesday|thursday|f
 * `--show-completion`: Show completion for the current shell, to copy it or customize the installation.
 * `--help`: Show this message and exit.
 
+---
+
+
 ### `bell remove exam`
 
 Remove a planned exam for this class.
@@ -232,6 +340,9 @@ $ bell remove exam [OPTIONS] NUMBER EXAM_TYPE:{mündlich|stegreifaufgabe|schulau
 * `--install-completion`: Install completion for the current shell.
 * `--show-completion`: Show completion for the current shell, to copy it or customize the installation.
 * `--help`: Show this message and exit.
+
+---
+
 
 ### `bell remove grade`
 
@@ -255,6 +366,9 @@ $ bell remove grade [OPTIONS] STUDENT NUMBER EXAM_TYPE:{mündlich|stegreifaufgab
 * `--show-completion`: Show completion for the current shell, to copy it or customize the installation.
 * `--help`: Show this message and exit.
 
+---
+
+
 ### `bell remove student`
 
 Remove a student from this class.
@@ -275,6 +389,9 @@ $ bell remove student [OPTIONS] STUDENT
 * `--show-completion`: Show completion for the current shell, to copy it or customize the installation.
 * `--help`: Show this message and exit.
 
+---
+
+
 ### `bell show syllabus`
 
 Show the syllabus for this class.
@@ -294,6 +411,9 @@ $ bell show syllabus [OPTIONS]
 * `--install-completion`: Install completion for the current shell.
 * `--show-completion`: Show completion for the current shell, to copy it or customize the installation.
 * `--help`: Show this message and exit.
+
+---
+
 
 ### `bell show grades`
 
@@ -318,6 +438,9 @@ $ bell show grades [OPTIONS]
 * `--show-completion`: Show completion for the current shell, to copy it or customize the installation.
 * `--help`: Show this message and exit.
 
+---
+
+
 ### `bell show note`
 
 Show notes for this class.
@@ -336,6 +459,9 @@ $ bell show note [OPTIONS]
 * `--show-completion`: Show completion for the current shell, to copy it or customize the installation.
 * `--help`: Show this message and exit.
 
+---
+
+
 ### `bell show exams`
 
 Show all planned (and already completed) exams for this class.
@@ -352,6 +478,9 @@ $ bell show exams [OPTIONS]
 * `--show-completion`: Show completion for the current shell, to copy it or customize the installation.
 * `--help`: Show this message and exit.
 
+---
+
+
 ### `bell show schedule`
 
 Show the schedule for this year.
@@ -367,6 +496,9 @@ $ bell show schedule [OPTIONS]
 * `--install-completion`: Install completion for the current shell.
 * `--show-completion`: Show completion for the current shell, to copy it or customize the installation.
 * `--help`: Show this message and exit.
+
+---
+
 
 ### `bell show students`
 
