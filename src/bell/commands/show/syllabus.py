@@ -22,9 +22,11 @@ def syllabus(
     """
     Show the syllabus for this class.
 
-    Use --subject and --level to specify which syllabus to show.
+    Use --subject, --level and --class-type to specify which syllabus to show.
     """
     if subject and not level or not subject and level:
-        raise typer.BadParameter("Either both options or none must be set.")
+        raise typer.BadParameter(
+            "Either both --subject and --level must be set, or none."
+        )
 
     run(subject, level, class_type)

@@ -18,7 +18,13 @@ _Note that currently this tool only works for the subjects maths and computer sc
 
 ## Installation
 
-todo
+Install BELL directly from this repository with uv:
+
+```
+uv tool install git+https://github.com/lukaspodobnik/bell.git
+```
+
+This will make the bell command available globally on your system.
 
 ---
 
@@ -396,7 +402,7 @@ $ bell remove student [OPTIONS] STUDENT
 
 Show the syllabus for this class.
 
-Use --subject and --level to specify which syllabus to show.
+Use --subject, --level and --class-type to specify which syllabus to show.
 
 **Usage**:
 
@@ -408,6 +414,7 @@ $ bell show syllabus [OPTIONS]
 
 * `-s, --subject [maths|cs]`: The subject of the syllabus.
 * `-l, --level INTEGER`: The grade-level of the syllabus.
+* `-t, --class-type [normal, vertiefung, spät_beginnend, erhöhtes_niveau]`: The type of the class.
 * `--install-completion`: Install completion for the current shell.
 * `--show-completion`: Show completion for the current shell, to copy it or customize the installation.
 * `--help`: Show this message and exit.
