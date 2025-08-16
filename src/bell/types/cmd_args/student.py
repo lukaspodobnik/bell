@@ -3,7 +3,7 @@ from bell.types.cmd_args import CommandArg
 
 class Student(CommandArg):
     _error_msg = (
-        "Expected format: first_name last_name "
+        "Expected format: first_name(s) last_name "
         "(e.g., Max Mustermann). Multiple first names are allowed."
     )
 

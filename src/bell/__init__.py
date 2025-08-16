@@ -27,8 +27,10 @@ def main() -> None:
         help="BELL – A small daily bookkeeping tool for teachers.",
         rich_markup_mode="markdown",
     )
+
     app.add_typer(add_app, name="add")
     app.add_typer(init_app, name="init")
     app.add_typer(remove_app, name="remove")
     app.add_typer(show_app, name="show")
+
     app()

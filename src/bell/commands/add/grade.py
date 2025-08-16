@@ -16,29 +16,41 @@ def grade(
     student: Annotated[
         Student,
         typer.Argument(
-            parser=Student.parser, help="The student to assign the grade to."
+            parser=Student.parser,
+            help="The student to assign the grade to.",
         ),
     ] = None,
     grade: int = typer.Argument(None, help="The grade value (1-6).", min=1, max=6),
     comment: str = typer.Option(
         " ", "--comment", "-c", help="Optional comment for the grade."
     ),
-    number: int = typer.Option(0, "--number", "-n", help="Number of the exam, (e.g., 1 for the first exam of given type)."),
+    number: int = typer.Option(
+        0,
+        "--number",
+        "-n",
+        help="Number of the exam, (e.g., 1 for the first exam of given type).",
+    ),
     exam_type: ExamType = typer.Option(
         ExamType.MUENDLICH,
         "--exam-type",
         "-t",
-        help="Type of the exam (e.g., kurzarbeit)",
+        help="Type of the exam.",
     ),
     date: Annotated[
         Date,
-        typer.Option("--date", "-d", parser=Date.parser, help="Date of the grading."),
+        typer.Option(
+            "--date",
+            "-d",
+            parser=Date.parser,
+            help="Date of the grading.",
+            metavar="DD-MM-YYYY",
+        ),
     ] = datetime.now().strftime("%d-%m-%Y"),
     all: bool = typer.Option(
         False,
         "--all",
         "-a",
-        help="Set this to grade all students of this class.",
+        help="Set to grade all students of this class.",
     ),
 ):
     """
@@ -48,7 +60,7 @@ def grade(
     optionally including a --comment. Note, that --number usually should not be specified;
     it is used differentiate between exams of the same type (e.g., 1. Kurzarbeit and 2. Kurzarbeit).
     The --all option can be used to grade a whole class.
-    If --all is setall other parameters besides --exam-type are ignored
+    If --all is set, all other parameters besides --exam-type are ignored
     """
 
     if not all and not student and not grade:

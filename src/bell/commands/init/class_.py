@@ -13,8 +13,9 @@ def class_(
     class_name: Annotated[
         Class_,
         typer.Argument(
-            help="Name of the class (e.g., 10A, 9B).",
+            help="Name of the class.",
             parser=Class_.parser,
+            metavar="CLASS: e.g., 10A, 9B",
         ),
     ],
     subject: Subject = typer.Argument(

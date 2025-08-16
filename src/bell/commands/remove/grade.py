@@ -13,13 +13,14 @@ def grade(
     student: Annotated[
         Student,
         typer.Argument(
-            parser=Student.parser, help='Student name (e.g., "Max Mustermann").'
+            parser=Student.parser,
+            help="Student name.",
         ),
     ],
     number: int = typer.Argument(
         help="Number of the exam, (e.g., 1 for the first exam of given type)."
     ),
-    exam_type: ExamType = typer.Argument(help="Type of exam (e.g., kurzarbeit)."),
+    exam_type: ExamType = typer.Argument(help="Type of exam."),
 ):
     """
     Remove a grade for a student in this class.

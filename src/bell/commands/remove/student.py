@@ -13,7 +13,7 @@ def student(
         Student,
         typer.Argument(
             parser=Student.parser,
-            help="The student to remove (e.g., 'Max Mustermann').",
+            help="The student to remove.",
         ),
     ],
 ) -> None:

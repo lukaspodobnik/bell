@@ -12,9 +12,13 @@ app = typer.Typer()
 def class_(
     class_name: Annotated[
         Class_,
-        typer.Argument(parser=Class_.parser, help="Name of the class (e.g., 10A, 9B)."),
+        typer.Argument(
+            parser=Class_.parser,
+            help="Name of the class.",
+            metavar="CLASS: e.g., 10A, 9B",
+        ),
     ],
-    subject: Subject = typer.Argument(help="Subject name (e.g., maths)."),
+    subject: Subject = typer.Argument(help="Subject name."),
 ):
     """
     Remove a class from the current academic year.

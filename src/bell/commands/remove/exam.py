@@ -11,7 +11,7 @@ def exam(
     number: int = typer.Argument(
         help="Number of the exam, (e.g., 1 for the first exam of given type)."
     ),
-    exam_type: ExamType = typer.Argument(help="Type of exam (e.g., kurzarbeit)."),
+    exam_type: ExamType = typer.Argument(help="Type of the exam."),
 ):
     """
     Remove a planned exam for this class.

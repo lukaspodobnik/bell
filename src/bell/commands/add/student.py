@@ -12,7 +12,8 @@ def student(
     student: Annotated[
         Student,
         typer.Argument(
-            parser=Student.parser, help='The Student to add (e.g., "Max Mustermann")'
+            parser=Student.parser,
+            help="The Student to add.",
         ),
     ] = None,
     multiple: bool = typer.Option(
@@ -25,7 +26,7 @@ def student(
     """
     Add a student (or multiple students) to the current class.
 
-    Adds a single student or --multiple students to the class roster.
+    Adds a single student or --multiple students to the class roster,
     making them available for other commands.
     """
 

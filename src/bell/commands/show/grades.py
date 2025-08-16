@@ -16,11 +16,12 @@ def grades(
             "--student",
             "-s",
             parser=Student.parser,
-            help="The student to show grades for (e.g. 'Max Mustermann').",
+            help="The student to show grades for.",
+            metavar='"first_name(s) last_name"',
         ),
     ] = None,
     exam_type: ExamType = typer.Option(
-        None, "--exam-type", "-t", help="Type of the exam (e.g., kurzarbeit)."
+        None, "--exam-type", "-t", help="Type of the exam."
     ),
     last: bool = typer.Option(
         False,

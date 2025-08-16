@@ -15,8 +15,9 @@ def year(
             ...,
             "--year",
             "-y",
-            help="Specify a different academic year (e.g., 2024-25).",
+            help="Specify a different academic year.",
             parser=Year.parser,
+            metavar="YYYY-YY"
         ),
     ] = current_year(),
 ):
