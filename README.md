@@ -26,13 +26,19 @@ uv tool install git+https://github.com/lukaspodobnik/bell.git
 
 This will make the bell command available globally on your system.
 
+Uninstall bell with uv:
+
+```
+uv tool uninstall bell
+```
+
 ---
 
 ## How to get started
 
-- Start with 'bell init', where ever you want your root directory to be
-- cd into classroom/ and use 'bell init year'
-- cd into the year and use 'bell init class 10A maths' (for example)
+- Start with `bell init`, where ever you want your root directory to be
+- cd into classroom/ and use `bell init year`
+- cd into the year and use `bell init class 10A maths` (for example)
 - Use the very wise --help option to see usage of the commands in the terminal
 
 ---
