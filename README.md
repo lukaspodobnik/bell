@@ -74,6 +74,8 @@ Note that you **can** add other directories and files (these are going to be ign
 
 ## Documentation
 
+_Note that the options `--install-completion` and `--show-completion` do NOT work for any command. Do not use them._
+
 ### `bell init`
 
 Initialize a new classroom workspace.
@@ -112,7 +114,7 @@ $ bell init year [OPTIONS]
 
 ---
 
-### `bell init class_`
+### `bell init class`
 
 Initialize a class.
 
